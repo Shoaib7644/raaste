@@ -60,6 +60,11 @@ yarn-error.log*
 secrets/
 credentials/
 
+# source route for issuing short-lived Ably token requests; not a secret file
+!app/api/
+!app/api/ably-token/
+!app/api/ably-token/route.ts
+
 # vercel
 .vercel
 

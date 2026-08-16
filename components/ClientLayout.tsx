@@ -8,6 +8,7 @@ import Atmosphere from './Atmosphere'
 import RaasteLogo from './RaasteLogo'
 import ExperienceSelector from './ExperienceSelector'
 import MusicPlayer from './MusicPlayer'
+import ActiveListenerCount from './ActiveListenerCount'
 
 const INSTAGRAM_URL = 'https://www.instagram.com/clive_shoaib?igsh=b25raGxrbDl3djVx&utm_source=qr'
 
@@ -155,6 +156,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         <div className="fixed left-0 right-0 bottom-[9vh] z-20 flex flex-col items-center overflow-visible pointer-events-none sm:bottom-[8vh]">
           {/* Music player and controls */}
           <div className={`relative z-20 fade-up ${controlsVisible ? 'visible' : ''}`}>
+            <ActiveListenerCount />
             <MusicPlayer />
           </div>
 
