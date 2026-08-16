@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Baloo_2, Geist } from "next/font/google";
 import "./globals.css";
 import { ExperiencesProvider } from '../lib/experiences-context'
@@ -75,6 +76,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <ClientLayout>{children}</ClientLayout>
           </MusicPlayerProvider>
         </ExperiencesProvider>
+        <Analytics />
       </body>
     </html>
   );

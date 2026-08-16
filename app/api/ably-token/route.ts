@@ -25,7 +25,7 @@ export async function GET(request: Request) {
     clientId,
     ttl: TOKEN_TTL_MS,
     capability: {
-      [CHANNEL_NAME]: ['presence'],
+      [CHANNEL_NAME]: ['presence', 'subscribe'],
     },
   })
 

@@ -7,6 +7,8 @@ import { useMusicPlayer } from '../lib/MusicPlayerContext'
 const CHANNEL_NAME = 'raaste:listeners'
 const HEARTBEAT_INTERVAL_MS = 25 * 1000
 const PRESENCE_EXPIRY_MS = 55 * 1000
+const SESSION_ID_STORAGE_KEY = 'raaste.listenerSessionId'
+const CLIENT_ID_PATTERN = /^raaste-listener-[a-zA-Z0-9_-]{16,80}$/
 
 type ListenerPresenceData = {
   status: 'listening'
@@ -14,12 +16,29 @@ type ListenerPresenceData = {
 }
 
 function createClientId() {
+  try {
+    const storedId = window.sessionStorage.getItem(SESSION_ID_STORAGE_KEY)
+    if (storedId && CLIENT_ID_PATTERN.test(storedId)) {
+      return storedId
+    }
+  } catch {
+    // Session storage is only an anti-duplicate convenience across refreshes.
+  }
+
   const randomId =
     typeof crypto !== 'undefined' && 'randomUUID' in crypto
       ? crypto.randomUUID()
       : Math.random().toString(36).slice(2) + Date.now().toString(36)
 
-  return `raaste-listener-${randomId.replace(/[^a-zA-Z0-9_-]/g, '')}`
+  const clientId = `raaste-listener-${randomId.replace(/[^a-zA-Z0-9_-]/g, '')}`
+
+  try {
+    window.sessionStorage.setItem(SESSION_ID_STORAGE_KEY, clientId)
+  } catch {
+    // A fresh in-memory ID still works when storage is unavailable.
+  }
+
+  return clientId
 }
 
 function isFreshListener(member: PresenceMessage, now: number) {
