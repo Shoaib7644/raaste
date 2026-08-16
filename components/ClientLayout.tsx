@@ -11,6 +11,28 @@ import MusicPlayer from './MusicPlayer'
 import ActiveListenerCount from './ActiveListenerCount'
 
 const INSTAGRAM_URL = 'https://www.instagram.com/clive_shoaib?igsh=b25raGxrbDl3djVx&utm_source=qr'
+const LINKEDIN_URL = 'https://www.linkedin.com/in/shoaib-ahmed-52b4445a'
+
+function InstagramIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" aria-hidden="true">
+      <rect x="4.5" y="4.5" width="15" height="15" rx="4.2" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="12" cy="12" r="3.4" fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="16.8" cy="7.2" r="1" fill="currentColor" />
+    </svg>
+  )
+}
+
+function LinkedInIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M6.8 8.9H3.9v10h2.9v-10ZM5.4 7.5a1.7 1.7 0 1 0 0-3.4 1.7 1.7 0 0 0 0 3.4Zm13.7 5.9c0-3-1.6-4.8-4.1-4.8-1.5 0-2.5.7-3 1.5V8.9H9.2v10h2.9v-5.4c0-1.4.7-2.3 1.9-2.3 1.1 0 2 .7 2 2.4v5.3h2.9v-5.5Z"
+      />
+    </svg>
+  )
+}
 
 function getIndiaTime() {
   return new Intl.DateTimeFormat('en-GB', {
@@ -119,15 +141,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
             {indiaTime || '\u00a0'}
           </div>
         </div>
-        <button
-          className="raaste-button-touch pointer-events-auto text-xs font-medium uppercase tracking-[0.18em] text-print-paper/70 hover:text-print-cream focus:outline-none focus-visible:ring-1 focus-visible:ring-[rgba(242,223,184,0.65)]"
-          onClick={() => setAboutOpen(true)}
-          aria-haspopup="dialog"
-          aria-expanded={aboutOpen}
-          type="button"
-        >
-          about
-        </button>
+        <div className="flex min-h-5 min-w-[6.8rem] justify-end pt-0.5 text-right">
+          <ActiveListenerCount />
+        </div>
       </div>
 
       {/* Main content */}
@@ -156,7 +172,6 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         <div className="fixed left-0 right-0 bottom-[9vh] z-20 flex flex-col items-center overflow-visible pointer-events-none sm:bottom-[8vh]">
           {/* Music player and controls */}
           <div className={`relative z-20 fade-up ${controlsVisible ? 'visible' : ''}`}>
-            <ActiveListenerCount />
             <MusicPlayer />
           </div>
 
@@ -237,18 +252,39 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         </div>
       )}
 
+      <a
+        href="#about"
+        className="raaste-button-touch fixed bottom-11 left-4 z-30 pointer-events-auto text-xs font-medium uppercase tracking-[0.18em] text-print-paper/70 hover:text-print-cream focus:outline-none focus-visible:ring-1 focus-visible:ring-[rgba(242,223,184,0.65)] sm:left-5"
+        onClick={(event) => {
+          event.preventDefault()
+          setAboutOpen(true)
+        }}
+        aria-haspopup="dialog"
+        aria-expanded={aboutOpen}
+      >
+        about
+      </a>
+
       {/* Footer */}
-      <div className="fixed bottom-3 left-0 z-10 w-full px-4 text-center text-xs text-white/60">
+      <div className="fixed bottom-3 left-0 z-10 flex w-full items-center justify-center gap-3 px-4 text-center text-xs text-white/60">
         <span>made with ♥ by Shoaib</span>
-        <span className="mx-2 text-white/35">·</span>
         <a
           href={INSTAGRAM_URL}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Open Harshit's Instagram profile"
-          className="pointer-events-auto text-white/60 transition hover:text-white focus:outline-none focus-visible:ring-1 focus-visible:ring-white/60"
+          aria-label="Instagram"
+          className="pointer-events-auto text-white/58 transition hover:text-white focus:outline-none focus-visible:ring-1 focus-visible:ring-white/60"
         >
-          Instagram
+          <InstagramIcon />
+        </a>
+        <a
+          href={LINKEDIN_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          className="pointer-events-auto text-white/58 transition hover:text-white focus:outline-none focus-visible:ring-1 focus-visible:ring-white/60"
+        >
+          <LinkedInIcon />
         </a>
       </div>
     </>

@@ -268,7 +268,7 @@ export default function ActiveListenerCount() {
 
   return (
     <div
-      className="pointer-events-none absolute -top-6 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap text-[11px] font-semibold tracking-[0.08em] text-print-paper/72 sm:-top-7 sm:text-xs"
+      className="pointer-events-none whitespace-nowrap text-[11px] font-semibold tracking-[0.08em] text-print-paper/72 sm:text-xs"
       aria-live="polite"
     >
       <span className="mr-1 text-[10px] text-[rgba(112,141,89,0.92)]" aria-hidden="true">
