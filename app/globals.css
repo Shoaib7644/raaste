@@ -3,13 +3,20 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --raaste-cream: #f2dfb8;
+  --raaste-paper: #d9bf8f;
+  --raaste-ink: #241b15;
+  --raaste-charcoal: #16130f;
+  --raaste-vermilion: #9f3f2f;
+  --raaste-indigo: #30435e;
+  --raaste-green: #526344;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-raaste-display);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +29,166 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+.font-raaste-display {
+  font-family: var(--font-raaste-display), var(--font-geist-sans), sans-serif;
+}
+
+.text-print-cream {
+  color: var(--raaste-cream);
+}
+
+.text-print-paper {
+  color: var(--raaste-paper);
+}
+
+.bg-radio-charcoal {
+  background: rgba(22, 19, 15, 0.46);
+}
+
+.raaste-brand {
+  color: var(--raaste-cream);
+  text-shadow: 0 1px 0 rgba(36, 27, 21, 0.45);
+}
+
+.raaste-sign-rule {
+  position: relative;
+}
+
+.raaste-sign-rule::after {
+  position: absolute;
+  left: 50%;
+  bottom: -0.22rem;
+  width: min(8.5rem, 66%);
+  height: 2px;
+  content: "";
+  background: rgba(242, 223, 184, 0.64);
+  box-shadow: 2.2rem 0 0 rgba(159, 63, 47, 0.44), -2.2rem 0 0 rgba(48, 67, 94, 0.34);
+  transform: translateX(-50%) rotate(-0.5deg);
+  opacity: 0.85;
+}
+
+.raaste-print-soft {
+  text-shadow:
+    0.7px 0 rgba(159, 63, 47, 0.16),
+    -0.5px 0 rgba(48, 67, 94, 0.14),
+    0 2px 10px rgba(0, 0, 0, 0.18);
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.atmosphere-drift {
+  animation: raaste-living-frame 42s ease-in-out infinite alternate;
+  transform-origin: 52% 48%;
+}
+
+.atmosphere-grain {
+  background-image:
+    radial-gradient(circle at 20% 30%, white 0 0.6px, transparent 0.8px),
+    radial-gradient(circle at 70% 60%, white 0 0.5px, transparent 0.7px);
+  background-size: 34px 34px, 47px 47px;
+  mix-blend-mode: soft-light;
+  animation: raaste-film-grain 9s steps(4, end) infinite;
+}
+
+.raaste-ink-speckle {
+  background-image:
+    radial-gradient(circle, rgba(242, 223, 184, 0.36) 0 0.5px, transparent 0.7px),
+    radial-gradient(circle, rgba(36, 27, 21, 0.18) 0 0.45px, transparent 0.7px);
+  background-position: 0 0, 11px 15px;
+  background-size: 29px 29px, 37px 37px;
+  mix-blend-mode: soft-light;
+  opacity: 0.24;
+  pointer-events: none;
+}
+
+.raaste-dropdown-enter {
+  animation: raaste-dropdown-in 140ms ease-out both;
+}
+
+.raaste-button-touch {
+  transition: opacity 140ms ease, background-color 140ms ease, transform 120ms ease;
+}
+
+.raaste-button-touch:hover {
+  transform: scale(1.02);
+}
+
+.raaste-button-touch:active {
+  transform: scale(0.97);
+}
+
+@keyframes raaste-living-frame {
+  0% {
+    transform: scale(1) translate3d(-0.35%, 0, 0);
+  }
+
+  100% {
+    transform: scale(1.022) translate3d(0.45%, -0.28%, 0);
+  }
+}
+
+@keyframes raaste-film-grain {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  25% {
+    transform: translate3d(-0.35%, 0.25%, 0);
+  }
+
+  50% {
+    transform: translate3d(0.25%, -0.2%, 0);
+  }
+
+  75% {
+    transform: translate3d(0.18%, 0.32%, 0);
+  }
+}
+
+@keyframes raaste-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 80ms !important;
+  }
+
+  .atmosphere-drift,
+  .atmosphere-grain,
+  .raaste-dropdown-enter {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .raaste-button-touch:hover,
+  .raaste-button-touch:active {
+    transform: none;
+  }
 }

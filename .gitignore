@@ -30,8 +30,35 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files and private credentials
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+!.env.*.example
+
+# secrets / API keys / passwords / tokens / private credentials
+*.pem
+*.key
+*.p8
+*.p12
+*.crt
+*.cer
+*.der
+*.secret
+*secret*
+*secrets*
+*credential*
+*credentials*
+*token*
+*tokens*
+*password*
+*passwords*
+secrets/
+credentials/
 
 # vercel
 .vercel
@@ -39,3 +66,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local editor and Codex artifacts
+.idea/
+.codex/
+dev.log
