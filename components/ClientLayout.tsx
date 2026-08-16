@@ -9,7 +9,7 @@ import RaasteLogo from './RaasteLogo'
 import ExperienceSelector from './ExperienceSelector'
 import MusicPlayer from './MusicPlayer'
 
-const INSTAGRAM_URL = 'https://instagram.com/YOUR_USERNAME'
+const INSTAGRAM_URL = 'https://www.instagram.com/clive_shoaib?igsh=b25raGxrbDl3djVx&utm_source=qr'
 
 function getIndiaTime() {
   return new Intl.DateTimeFormat('en-GB', {

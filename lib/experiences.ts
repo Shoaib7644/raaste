@@ -18,7 +18,7 @@ export const experiences: Experience[] = [
     microcopy: "अभी बज रहा है",
     stationMark: "हजामत / रेडियो",
     playlistId: "PLCg86JMapum0",
-    backgroundImage: "/images/salon-1998-v2.webp",
+    backgroundImage: "/images/salon-1998-v3.webp",
   },
   {
     slug: "dhaba",
