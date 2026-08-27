@@ -113,8 +113,39 @@ body {
   pointer-events: none;
 }
 
-.raaste-dropdown-enter {
-  animation: raaste-dropdown-in 140ms ease-out both;
+.radio-utility-capsule {
+  display: inline-flex;
+  min-height: 1.8rem;
+  align-items: center;
+  gap: 0.34rem;
+  border: 1px solid rgba(242, 223, 184, 0.24);
+  border-radius: 999px;
+  background: rgba(10, 8, 5, 0.44);
+  padding: 0.34rem 0.62rem;
+  color: rgba(242, 223, 184, 0.88);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 0 7px 22px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.raaste-listener-dot {
+  display: inline-block;
+  transform-origin: center;
+  animation: raaste-listener-breathe 2.6s ease-in-out infinite;
+}
+
+.raaste-player-disc {
+  transform-origin: center;
+  will-change: transform;
+}
+
+.raaste-player-disc-playing {
+  animation: raaste-disc-spin 8s linear infinite;
 }
 
 .raaste-button-touch {
@@ -158,15 +189,22 @@ body {
   }
 }
 
-@keyframes raaste-dropdown-in {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
+@keyframes raaste-listener-breathe {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: scale(0.94);
   }
 
-  to {
+  50% {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1.12);
+  }
+}
+
+@keyframes raaste-disc-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -182,7 +220,8 @@ body {
 
   .atmosphere-drift,
   .atmosphere-grain,
-  .raaste-dropdown-enter {
+  .raaste-listener-dot,
+  .raaste-player-disc-playing {
     animation: none !important;
     transform: none !important;
   }

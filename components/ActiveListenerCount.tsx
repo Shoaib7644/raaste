@@ -268,10 +268,10 @@ export default function ActiveListenerCount() {
 
   return (
     <div
-      className="pointer-events-none whitespace-nowrap text-[11px] font-semibold tracking-[0.08em] text-print-paper/72 sm:text-xs"
+      className="radio-utility-capsule pointer-events-none"
       aria-live="polite"
     >
-      <span className="mr-1 text-[10px] text-[rgba(112,141,89,0.92)]" aria-hidden="true">
+      <span className="raaste-listener-dot mr-1 text-[10px] text-[rgba(143,181,105,0.94)]" aria-hidden="true">
         ●
       </span>
       {listenerCount} listening

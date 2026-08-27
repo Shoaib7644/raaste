@@ -6,7 +6,8 @@ import { useExperiences } from '../lib/experiences-context'
 import { experiences } from '../lib/experiences'
 import Atmosphere from './Atmosphere'
 import RaasteLogo from './RaasteLogo'
-import ExperienceSelector from './ExperienceSelector'
+import CassetteSideSelector from './CassetteSideSelector'
+import ExperienceCapsules from './ExperienceCapsules'
 import MusicPlayer from './MusicPlayer'
 import ActiveListenerCount from './ActiveListenerCount'
 
@@ -135,13 +136,14 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       <Atmosphere currentImage={currentImage} previousImage={previousImage} />
       {/* Header */}
       <div className="absolute top-0 left-0 z-30 flex w-full items-start justify-between px-4 pt-3 sm:px-5 sm:pt-4">
-        <div>
+        <div className="flex flex-col items-start gap-2">
           <RaasteLogo />
-          <div className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-print-paper/58 sm:text-xs">
+          <div className="radio-utility-capsule">
+            <span className="text-[11px]" aria-hidden="true">◷</span>
             {indiaTime || '\u00a0'}
           </div>
         </div>
-        <div className="flex min-h-5 min-w-[6.8rem] justify-end pt-0.5 text-right">
+        <div className="flex min-h-8 min-w-[6.8rem] justify-end pt-0.5 text-right">
           <ActiveListenerCount />
         </div>
       </div>
@@ -168,16 +170,22 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           </p>
         </div>
 
-        {/* Fixed bottom container for player and selector */}
-        <div className="fixed left-0 right-0 bottom-[9vh] z-20 flex flex-col items-center overflow-visible pointer-events-none sm:bottom-[8vh]">
+        {/* Fixed bottom container for player and capsule controls */}
+        <div className="fixed left-0 right-0 bottom-[8vh] z-20 flex flex-col items-center overflow-visible pointer-events-none sm:bottom-[7vh]">
           {/* Music player and controls */}
           <div className={`relative z-20 fade-up ${controlsVisible ? 'visible' : ''}`}>
             <MusicPlayer />
           </div>
 
-          {/* Experience selector */}
-          <div className={`relative z-40 mt-4 overflow-visible fade-up ${controlsVisible ? 'visible' : ''}`}>
-            <ExperienceSelector />
+          {currentExperience.slug === 'dads-cassette' && (
+            <div className={`relative z-30 mt-2 overflow-visible fade-up ${controlsVisible ? 'visible' : ''}`}>
+              <CassetteSideSelector />
+            </div>
+          )}
+
+          {/* Experience capsules */}
+          <div className={`relative z-40 mt-2 overflow-visible fade-up ${controlsVisible ? 'visible' : ''}`}>
+            <ExperienceCapsules />
           </div>
         </div>
       </div>

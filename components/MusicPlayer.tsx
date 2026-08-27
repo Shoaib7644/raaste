@@ -46,6 +46,7 @@ export default function MusicPlayer() {
   const [duration, setDuration] = useState(0)
   const playerHostRef = useRef<HTMLDivElement>(null)
   const playerRef = useRef<any | null>(null)
+  const loadedPlaylistRef = useRef<string | null>(null)
 
   const song = videoTitle || currentExperience.microcopy
   const artist = videoTitle ? videoArtist || 'YouTube Music' : ''
@@ -104,12 +105,7 @@ export default function MusicPlayer() {
           origin: window.location.origin,
         },
         events: {
-          onReady: (event: any) => {
-            event.target.cuePlaylist({
-              list: currentExperience.playlistId,
-              listType: 'playlist',
-            })
-            syncVideoData(event.target)
+          onReady: () => {
             setIsPlayerReady(true)
             // Do NOT autoplay; wait for user to press play
           },
@@ -130,24 +126,29 @@ export default function MusicPlayer() {
     }
   }
 
-  // Load or reload playlist when player is ready, experience changes, or player changes
+  // Cue the selected station without starting playback.
   useEffect(() => {
     const target = activePlayer
     if (isPlayerReady && target) {
       try {
-        target.cuePlaylist({
-          list: currentExperience.playlistId,
-          listType: 'playlist'
-        })
-        setPlayerState(window.YT?.PlayerState?.CUED ?? 5)
+        target.stopVideo?.()
+        loadedPlaylistRef.current = null
         setVideoTitle('')
         setVideoArtist('')
+        setCurrentTime(0)
+        setDuration(0)
+        target.cuePlaylist({
+          list: currentExperience.playlistId,
+          listType: 'playlist',
+        })
+        loadedPlaylistRef.current = currentExperience.playlistId
+        setPlayerState(window.YT?.PlayerState?.CUED ?? 5)
         // Do NOT autoplay; wait for user to press play
       } catch (err) {
         setIsPlayerReady(false)
       }
     }
-  }, [isPlayerReady, player, currentExperience])
+  }, [isPlayerReady, player, currentExperience.playlistId])
 
   useEffect(() => {
     const target = activePlayer
@@ -185,15 +186,16 @@ export default function MusicPlayer() {
       return
     }
 
-    const playerState = target.getPlayerState?.()
-    if (playerState === -1 && duration <= 0) {
+    if (loadedPlaylistRef.current !== currentExperience.playlistId) {
       target.loadPlaylist({
         list: currentExperience.playlistId,
         listType: 'playlist',
         index: 0,
         startSeconds: 0,
       })
+      loadedPlaylistRef.current = currentExperience.playlistId
     }
+
     target.playVideo()
     window.setTimeout(() => {
       if (target.getPlayerState?.() !== window.YT?.PlayerState?.PLAYING) {
@@ -227,7 +229,7 @@ export default function MusicPlayer() {
       <div className="pointer-events-auto bg-radio-charcoal relative overflow-hidden rounded-3xl border border-[rgba(242,223,184,0.22)] px-3 py-2 text-white shadow-xl sm:px-4 sm:py-3">
         <div className="raaste-ink-speckle absolute inset-0" aria-hidden="true" />
         <div className="grid grid-cols-[44px_minmax(0,1fr)_108px] items-center gap-3 sm:grid-cols-[64px_minmax(0,1fr)_132px] sm:gap-4">
-          <div className="relative flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(242,223,184,0.26)] bg-[rgba(242,223,184,0.12)] text-[8px] font-black uppercase tracking-[0.16em] text-print-cream shadow-md sm:h-16 sm:w-16 sm:text-[10px]">
+          <div className={`raaste-player-disc relative flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(242,223,184,0.26)] bg-[rgba(242,223,184,0.12)] text-[8px] font-black uppercase tracking-[0.16em] text-print-cream shadow-md sm:h-16 sm:w-16 sm:text-[10px] ${isPlaying ? 'raaste-player-disc-playing' : ''}`}>
             RAASTE
           </div>
 

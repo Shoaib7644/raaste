@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 import { raasteOgImage, SITE_NAME } from "@/lib/site-metadata";
 
-const dhabaTitle = "DHABA 12:47 AM — RAASTE";
-const dhabaDescription =
-  "A late-night Indian highway dhaba with a soundtrack. RAASTE — Indian Road Radio.";
+const dadsCassetteTitle = "DAD'S CASSETTE — RAASTE";
+const dadsCassetteDescription =
+  "A cassette full of songs you may have heard growing up. RAASTE — Indian Road Radio.";
 
 export const metadata: Metadata = {
-  title: dhabaTitle,
-  description: dhabaDescription,
+  title: dadsCassetteTitle,
+  description: dadsCassetteDescription,
   alternates: {
-    canonical: "https://raaste.online/dhaba",
+    canonical: "https://raaste.online/dads-cassette",
   },
   openGraph: {
     type: "website",
-    title: dhabaTitle,
-    description: dhabaDescription,
-    url: "https://raaste.online/dhaba",
+    title: dadsCassetteTitle,
+    description: dadsCassetteDescription,
+    url: "https://raaste.online/dads-cassette",
     siteName: SITE_NAME,
     images: [
       {
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: dhabaTitle,
-    description: dhabaDescription,
+    title: dadsCassetteTitle,
+    description: dadsCassetteDescription,
     images: [
       {
         url: raasteOgImage,

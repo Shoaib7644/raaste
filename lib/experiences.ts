@@ -9,6 +9,25 @@ export type Experience = {
   backgroundImage: string
 }
 
+export const DHABA_PLAYLIST_ID = "PLMVzUKeXX5x4"
+export const DADS_CASSETTE_SIDE_A_PLAYLIST_ID = "PLKu83gRDrWo0"
+export const DADS_CASSETTE_SIDE_B_PLAYLIST_ID = "PLA8E_xfmVp9U"
+
+export const dadsCassetteSides = [
+  {
+    id: "side-a",
+    side: "SIDE A",
+    label: "DAD'S FAVOURITES",
+    playlistId: DADS_CASSETTE_SIDE_A_PLAYLIST_ID,
+  },
+  {
+    id: "side-b",
+    side: "SIDE B",
+    label: "TAPE GETS INTERESTING",
+    playlistId: DADS_CASSETTE_SIDE_B_PLAYLIST_ID,
+  },
+] as const
+
 export const experiences: Experience[] = [
   {
     slug: "salon",
@@ -22,13 +41,23 @@ export const experiences: Experience[] = [
   },
   {
     slug: "dhaba",
-    title: "DHABA / 1:17 AM",
-    hindiTitle: "मिश्रा ढाबा",
-    tagline: "Chai first. Highway later.",
+    title: "DHABA 12:47 AM",
+    hindiTitle: "ढाबा",
+    tagline: "पहले चाय, फिर बाय।",
     microcopy: "चाय के साथ बज रहा है",
     stationMark: "रात / चाय",
-    playlistId: "REPLACE_WITH_PLAYLIST_ID",
-    backgroundImage: "/images/dhaba.webp",
+    playlistId: DHABA_PLAYLIST_ID,
+    backgroundImage: "/images/dhaba-1247.webp",
+  },
+  {
+    slug: "dads-cassette",
+    title: "DAD'S CASSETTE",
+    hindiTitle: "पापा की टेप",
+    tagline: "कुछ गाने विरासत में मिलते हैं।",
+    microcopy: "पापा की टेप बज रही है",
+    stationMark: "घर / टेप",
+    playlistId: DADS_CASSETTE_SIDE_A_PLAYLIST_ID,
+    backgroundImage: "/images/dads-cassette.webp",
   },
   {
     slug: "bus",
@@ -49,16 +78,6 @@ export const experiences: Experience[] = [
     stationMark: "बारिश / सड़क",
     playlistId: "REPLACE_WITH_PLAYLIST_ID",
     backgroundImage: "/images/monsoon.webp",
-  },
-  {
-    slug: "cassette",
-    title: "DAD'S CASSETTE",
-    hindiTitle: "पापा की कैसेट",
-    tagline: "Side A.",
-    microcopy: "Side A से शुरू",
-    stationMark: "टेप / याद",
-    playlistId: "REPLACE_WITH_PLAYLIST_ID",
-    backgroundImage: "/images/cassette.webp",
   },
   {
     slug: "truck",
