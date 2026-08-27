@@ -89,8 +89,18 @@ body {
 }
 
 .atmosphere-drift {
-  animation: raaste-living-frame 42s ease-in-out infinite alternate;
   transform-origin: 52% 48%;
+}
+
+.atmosphere-ambient-light {
+  background:
+    radial-gradient(circle at 28% 22%, rgba(242, 223, 184, 0.12), transparent 32%),
+    radial-gradient(circle at 78% 66%, rgba(159, 63, 47, 0.08), transparent 36%),
+    linear-gradient(112deg, transparent 18%, rgba(242, 223, 184, 0.055) 42%, transparent 68%);
+  mix-blend-mode: soft-light;
+  opacity: 0.42;
+  transform: translate3d(-0.35%, 0, 0);
+  animation: raaste-ambient-light 24s ease-in-out infinite alternate;
 }
 
 .atmosphere-grain {
@@ -148,6 +158,18 @@ body {
   animation: raaste-disc-spin 8s linear infinite;
 }
 
+.raaste-cassette-side-deck {
+  transition: opacity 180ms ease, transform 220ms ease;
+}
+
+.raaste-cassette-switch-right {
+  animation: raaste-cassette-switch-right 420ms ease-out both;
+}
+
+.raaste-cassette-switch-left {
+  animation: raaste-cassette-switch-left 420ms ease-out both;
+}
+
 .raaste-button-touch {
   transition: opacity 140ms ease, background-color 140ms ease, transform 120ms ease;
 }
@@ -160,13 +182,15 @@ body {
   transform: scale(0.97);
 }
 
-@keyframes raaste-living-frame {
+@keyframes raaste-ambient-light {
   0% {
-    transform: scale(1) translate3d(-0.35%, 0, 0);
+    opacity: 0.32;
+    transform: translate3d(-0.35%, 0, 0);
   }
 
   100% {
-    transform: scale(1.022) translate3d(0.45%, -0.28%, 0);
+    opacity: 0.48;
+    transform: translate3d(0.45%, -0.18%, 0);
   }
 }
 
@@ -208,6 +232,40 @@ body {
   }
 }
 
+@keyframes raaste-cassette-switch-right {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  42% {
+    opacity: 0.68;
+    transform: translateX(5px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes raaste-cassette-switch-left {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  42% {
+    opacity: 0.68;
+    transform: translateX(-5px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -219,9 +277,12 @@ body {
   }
 
   .atmosphere-drift,
+  .atmosphere-ambient-light,
   .atmosphere-grain,
   .raaste-listener-dot,
-  .raaste-player-disc-playing {
+  .raaste-player-disc-playing,
+  .raaste-cassette-switch-right,
+  .raaste-cassette-switch-left {
     animation: none !important;
     transform: none !important;
   }

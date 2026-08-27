@@ -10,6 +10,7 @@ import CassetteSideSelector from './CassetteSideSelector'
 import ExperienceCapsules from './ExperienceCapsules'
 import MusicPlayer from './MusicPlayer'
 import ActiveListenerCount from './ActiveListenerCount'
+import ShareExperienceButton from './ShareExperienceButton'
 
 const INSTAGRAM_URL = 'https://www.instagram.com/clive_shoaib?igsh=b25raGxrbDl3djVx&utm_source=qr'
 const LINKEDIN_URL = 'https://www.linkedin.com/in/shoaib-ahmed-52b4445a'
@@ -186,6 +187,10 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           {/* Experience capsules */}
           <div className={`relative z-40 mt-2 overflow-visible fade-up ${controlsVisible ? 'visible' : ''}`}>
             <ExperienceCapsules />
+          </div>
+
+          <div className={`relative z-40 mt-2 overflow-visible fade-up ${controlsVisible ? 'visible' : ''}`}>
+            <ShareExperienceButton />
           </div>
         </div>
       </div>

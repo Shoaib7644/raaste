@@ -44,6 +44,7 @@ export default function Atmosphere({ currentImage, previousImage }: AtmospherePr
           <AtmosphereImage key={`current-${currentImage}`} src={currentImage} mode="current" />
         )}
         {/* Vignette: subtle darken at edges */}
+        <div className="atmosphere-ambient-light absolute inset-0 pointer-events-none" aria-hidden="true" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/30 pointer-events-none" aria-hidden="true" />
         <div className="atmosphere-grain absolute inset-0 opacity-[0.035]" aria-hidden="true" />
       </div>
