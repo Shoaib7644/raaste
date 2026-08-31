@@ -7,6 +7,7 @@ const routes = [
   "/salon",
   "/dhaba",
   "/dads-cassette",
+  "/u/shoaib",
   "/request",
   "/monsoon",
   "/bus",

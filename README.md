@@ -44,7 +44,8 @@ RAASTE includes a public `/request` page where visitors can submit 5-15 songs fo
 1. Create a Supabase project.
 2. Open the Supabase SQL editor.
 3. Run the schema in `supabase/song_requests.sql`.
-4. Add these environment variables locally and in Vercel:
+4. Run the publish schema in `supabase/published_raastes.sql`.
+5. Add these environment variables locally and in Vercel:
 
 ```bash
 SUPABASE_URL=
@@ -65,3 +66,14 @@ Open `http://localhost:3000/request`. Without Supabase environment variables, th
 ### Deployment
 
 On Vercel, add `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` to the project environment variables before deploying. A future email provider such as Resend can be integrated after review/publishing exists; for now, the API stores `notification_status = 'not_sent'`.
+
+### Publishing A Personal RAASTE
+
+Public pages are served from `published_raastes`, not directly from private `song_requests`.
+
+1. Review a pending request in Supabase.
+2. Create the YouTube playlist manually.
+3. Run `supabase/publish_shoaib.sql` after replacing `__PASTE_YOUTUBE_PLAYLIST_ID__` and the placeholder song titles.
+4. Visit `https://raaste.online/u/shoaib`.
+
+The `/u/[slug]` route generates dynamic metadata and a dynamic Open Graph image with Next.js. Only rows with `is_published = true` are public.

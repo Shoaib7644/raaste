@@ -61,6 +61,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const closeAboutButtonRef = useRef<HTMLButtonElement>(null)
   const isDadsCassette = currentExperience.slug === 'dads-cassette'
   const isRequestPage = pathname === '/request'
+  const isAboutPage = pathname === '/about'
+  const isPublishedRaastePage = pathname.startsWith('/u/')
 
   useEffect(() => {
     const syncTime = () => setIndiaTime(`${getIndiaTime()} IST`)
@@ -116,7 +118,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   // Update currentExperience based on pathname
   useEffect(() => {
     const slug = pathname.replace(/^\//, '') || 'salon' // default to salon for root
-    if (slug === 'request') return
+    if (slug === 'request' || pathname.startsWith('/u/')) return
 
     const foundExperience = experiences.find(exp => exp.slug === slug)
     if (foundExperience) {
@@ -138,8 +140,9 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
   return (
     <>
-      {/* Atmosphere */}
-      <Atmosphere currentImage={currentImage} previousImage={previousImage} />
+      {!isPublishedRaastePage && (
+        <Atmosphere currentImage={currentImage} previousImage={previousImage} />
+      )}
       {/* Header */}
       <div className="absolute top-0 left-0 z-30 flex w-full items-start justify-between px-4 pt-3 sm:px-5 sm:pt-4">
         <div className="flex flex-col items-start gap-2">
@@ -154,8 +157,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         </div>
       </div>
 
-      {isRequestPage ? (
-        <main className="relative z-10 min-h-screen w-full overflow-y-auto px-4 pb-28 pt-28 sm:px-6 sm:pt-32">
+      {isRequestPage || isAboutPage || isPublishedRaastePage ? (
+        <main className={isRequestPage || isAboutPage ? "relative z-10 min-h-screen w-full overflow-y-auto px-4 pb-28 pt-28 sm:px-6 sm:pt-32" : "relative z-10 min-h-screen w-full"}>
           {children}
         </main>
       ) : (
@@ -253,22 +256,20 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
               </div>
 
               <p className="mt-5 text-sm leading-6 text-print-cream/88">
-                A small collection of places, songs and memories from the India we grew up with.
+                Three little stations are live now: SALON 1998, DHABA 12:47 AM, and DAD&apos;S CASSETTE.
               </p>
 
               <div className="font-raaste-display mt-5 space-y-1 text-lg leading-6 text-print-cream">
                 <p>Barber shops.</p>
-                <p>Bus windows.</p>
-                <p>Dhaba nights.</p>
-                <p>Monsoon drives.</p>
+                <p>Highway chai.</p>
                 <p>Dad&apos;s cassettes.</p>
               </div>
 
               <p className="mt-5 text-sm leading-6 text-print-paper/82">
-                No algorithm. Just press play and take the road.
+                Make Your RAASTE lets listeners send 5-15 songs that may become a small personal radio page.
               </p>
               <p className="mt-3 text-xs font-semibold uppercase tracking-[0.16em] text-print-paper/58">
-                Every station is a memory.
+                Every station is a memory. Some can now be yours.
               </p>
 
               <div className="mt-6 flex items-center justify-between gap-4 text-xs text-print-paper/70">
