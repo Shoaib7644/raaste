@@ -30,7 +30,7 @@ export default function CassetteSideSelector() {
 
   return (
     <div
-      className={`raaste-cassette-side-deck pointer-events-auto flex max-w-[min(34rem,calc(100vw-1.5rem))] flex-wrap items-center justify-center gap-1 rounded-[1.6rem] border border-[rgba(242,223,184,0.22)] bg-[rgba(36,27,21,0.32)] p-1 shadow-[0_8px_22px_rgba(0,0,0,0.16)] backdrop-blur-[2px] ${
+      className={`raaste-cassette-side-deck pointer-events-auto grid w-[min(27rem,calc(100vw-1.5rem))] grid-cols-2 gap-1.5 rounded-[0.8rem] border border-[rgba(242,223,184,0.2)] bg-[linear-gradient(180deg,rgba(57,47,37,0.54),rgba(16,13,10,0.5))] p-1.5 shadow-[inset_0_1px_0_rgba(242,223,184,0.12),0_10px_24px_rgba(0,0,0,0.2)] backdrop-blur-[3px] ${
         switchDirection === 'right'
           ? 'raaste-cassette-switch-right'
           : switchDirection === 'left'
@@ -47,14 +47,14 @@ export default function CassetteSideSelector() {
         return (
           <button
             key={side.id}
-            className={`raaste-button-touch inline-flex min-h-8 items-center justify-center rounded-full border px-3 py-1 text-[9px] font-black uppercase tracking-[0.12em] transition focus:outline-none focus-visible:ring-1 focus-visible:ring-[rgba(242,223,184,0.82)] focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(22,19,15,0.72)] sm:px-3.5 sm:text-[10px] ${
+            className={`raaste-button-touch raaste-tape-side-button relative flex min-h-[3.15rem] flex-col items-start justify-center overflow-hidden rounded-[0.55rem] border px-3 py-2 text-left uppercase transition focus:outline-none focus-visible:ring-1 focus-visible:ring-[rgba(242,223,184,0.82)] focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(22,19,15,0.72)] sm:min-h-[3.35rem] sm:px-3.5 ${
               selected
-                ? 'border-[rgba(242,223,184,0.68)] bg-[rgba(242,223,184,0.78)] text-[#241b15] shadow-[inset_0_0_0_1px_rgba(36,27,21,0.14),0_0_12px_rgba(242,223,184,0.12)]'
-                : 'border-transparent bg-[rgba(242,223,184,0.16)] text-print-paper/88 hover:bg-[rgba(242,223,184,0.28)] hover:text-print-cream'
+                ? 'raaste-tape-side-button-active border-[rgba(242,223,184,0.58)] bg-[rgba(226,197,145,0.86)] text-[#241b15] shadow-[inset_0_1px_0_rgba(255,255,255,0.22),inset_0_-2px_0_rgba(36,27,21,0.18),0_0_16px_rgba(242,223,184,0.14)]'
+                : 'border-[rgba(242,223,184,0.2)] bg-[rgba(30,25,20,0.64)] text-print-paper/82 shadow-[inset_0_2px_8px_rgba(0,0,0,0.26)] hover:border-[rgba(242,223,184,0.38)] hover:bg-[rgba(54,43,32,0.68)] hover:text-print-cream'
             }`}
             type="button"
             aria-pressed={selected}
-            aria-label={`${side.side}: ${side.label}`}
+            aria-label={`${side.side} — ${side.label}`}
             onClick={() => {
               if (selected) return
 
@@ -70,10 +70,19 @@ export default function CassetteSideSelector() {
               switchTimerRef.current = window.setTimeout(() => setSwitchDirection(null), 460)
             }}
           >
-            <span>{side.side}</span>
-            <span className="opacity-70" aria-hidden="true"> · </span>
-            <span>{side.label}</span>
-            {selected && <span className="ml-1.5" aria-hidden="true">✓</span>}
+            <span className="raaste-tape-screw left-1.5 top-1.5" aria-hidden="true" />
+            <span className="raaste-tape-screw bottom-1.5 right-1.5" aria-hidden="true" />
+            <span className="relative flex w-full items-center justify-between gap-2">
+              <span className="text-[10px] font-black tracking-[0.18em] sm:text-[11px]">
+                {side.side}
+                <span className="opacity-55" aria-hidden="true"> &mdash;</span>
+              </span>
+              <span className="h-1.5 w-1.5 rounded-full bg-current opacity-45" aria-hidden="true" />
+            </span>
+            <span className="relative mt-0.5 text-[8px] font-black leading-tight tracking-[0.11em] sm:text-[9px]">
+              <span className="sr-only" aria-hidden="true"> </span>
+              {side.label}
+            </span>
           </button>
         )
       })}

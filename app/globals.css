@@ -158,8 +158,81 @@ body {
   animation: raaste-disc-spin 8s linear infinite;
 }
 
+.raaste-boombox {
+  width: min(25rem, calc(100vw - 3rem));
+  aspect-ratio: 640 / 300;
+  opacity: 0.94;
+  filter: drop-shadow(0 22px 30px rgba(0, 0, 0, 0.34));
+  transform: translateY(-0.2rem);
+}
+
+.raaste-boombox-deck {
+  transition: filter 220ms ease, opacity 220ms ease;
+}
+
+.raaste-boombox-playing .raaste-boombox-deck {
+  filter: drop-shadow(0 0 8px rgba(242, 223, 184, 0.16));
+}
+
+.raaste-boombox-tape-glow {
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.raaste-boombox-playing .raaste-boombox-tape-glow {
+  opacity: 0.76;
+  animation: raaste-tape-window-warmth 3.8s ease-in-out infinite alternate;
+}
+
+.raaste-cassette-reel {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.raaste-boombox-playing .raaste-cassette-reel {
+  animation: raaste-cassette-reel-turn 2.7s linear infinite;
+}
+
+.raaste-boombox-playing .raaste-cassette-reel-right {
+  animation-duration: 2.25s;
+}
+
 .raaste-cassette-side-deck {
   transition: opacity 180ms ease, transform 220ms ease;
+}
+
+.raaste-tape-side-button::before {
+  position: absolute;
+  right: 0.7rem;
+  bottom: 0.58rem;
+  left: 0.7rem;
+  height: 1px;
+  content: "";
+  background: currentColor;
+  opacity: 0.18;
+}
+
+.raaste-tape-side-button::after {
+  position: absolute;
+  inset: 0.28rem;
+  border: 1px solid currentColor;
+  border-radius: 0.38rem;
+  content: "";
+  opacity: 0.14;
+}
+
+.raaste-tape-side-button-active::after {
+  opacity: 0.26;
+}
+
+.raaste-tape-screw {
+  position: absolute;
+  width: 0.26rem;
+  height: 0.26rem;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.34;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.42);
 }
 
 .raaste-cassette-switch-right {
@@ -232,6 +305,22 @@ body {
   }
 }
 
+@keyframes raaste-cassette-reel-turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes raaste-tape-window-warmth {
+  0% {
+    opacity: 0.42;
+  }
+
+  100% {
+    opacity: 0.78;
+  }
+}
+
 @keyframes raaste-cassette-switch-right {
   0% {
     opacity: 1;
@@ -281,6 +370,8 @@ body {
   .atmosphere-grain,
   .raaste-listener-dot,
   .raaste-player-disc-playing,
+  .raaste-boombox-playing .raaste-cassette-reel,
+  .raaste-boombox-playing .raaste-boombox-tape-glow,
   .raaste-cassette-switch-right,
   .raaste-cassette-switch-left {
     animation: none !important;

@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useExperiences } from '../lib/experiences-context'
 import { experiences } from '../lib/experiences'
@@ -11,6 +12,7 @@ import ExperienceCapsules from './ExperienceCapsules'
 import MusicPlayer from './MusicPlayer'
 import ActiveListenerCount from './ActiveListenerCount'
 import ShareExperienceButton from './ShareExperienceButton'
+import DadsCassetteBoombox from './DadsCassetteBoombox'
 
 const INSTAGRAM_URL = 'https://www.instagram.com/clive_shoaib?igsh=b25raGxrbDl3djVx&utm_source=qr'
 const LINKEDIN_URL = 'https://www.linkedin.com/in/shoaib-ahmed-52b4445a'
@@ -46,7 +48,6 @@ function getIndiaTime() {
 }
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
-  void children
   const pathname = usePathname()
   const { currentExperience, setCurrentExperience } = useExperiences()
   const [currentImage, setCurrentImage] = useState<string>(currentExperience.backgroundImage)
@@ -58,6 +59,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const [indiaTime, setIndiaTime] = useState('')
   const [aboutOpen, setAboutOpen] = useState(false)
   const closeAboutButtonRef = useRef<HTMLButtonElement>(null)
+  const isDadsCassette = currentExperience.slug === 'dads-cassette'
+  const isRequestPage = pathname === '/request'
 
   useEffect(() => {
     const syncTime = () => setIndiaTime(`${getIndiaTime()} IST`)
@@ -113,6 +116,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   // Update currentExperience based on pathname
   useEffect(() => {
     const slug = pathname.replace(/^\//, '') || 'salon' // default to salon for root
+    if (slug === 'request') return
+
     const foundExperience = experiences.find(exp => exp.slug === slug)
     if (foundExperience) {
       setCurrentExperience(foundExperience)
@@ -149,10 +154,14 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         </div>
       </div>
 
-      {/* Main content */}
+      {isRequestPage ? (
+        <main className="relative z-10 min-h-screen w-full overflow-y-auto px-4 pb-28 pt-28 sm:px-6 sm:pt-32">
+          {children}
+        </main>
+      ) : (
       <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-4 pt-16 pb-8 sm:pt-20">
         {/* Title and tagline */}
-        <div className="-translate-y-20 text-center sm:-translate-y-16">
+        <div className={`${isDadsCassette ? '-translate-y-24 sm:-translate-y-20' : '-translate-y-20 sm:-translate-y-16'} text-center`}>
           <div className={`fade-up text-[11px] font-semibold uppercase tracking-[0.32em] text-print-paper/80 ${titleVisible ? 'visible' : ''}`}>
             {currentExperience.title}
           </div>
@@ -171,29 +180,42 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           </p>
         </div>
 
+        {isDadsCassette && (
+          <div className={`-mt-20 mb-28 fade-up sm:-mt-14 sm:mb-32 ${controlsVisible ? 'visible' : ''}`}>
+            <DadsCassetteBoombox />
+          </div>
+        )}
+
         {/* Fixed bottom container for player and capsule controls */}
         <div className="fixed left-0 right-0 bottom-[8vh] z-20 flex flex-col items-center overflow-visible pointer-events-none sm:bottom-[7vh]">
+          {isDadsCassette && (
+            <div className={`relative z-30 mb-2 overflow-visible fade-up ${controlsVisible ? 'visible' : ''}`}>
+              <CassetteSideSelector />
+            </div>
+          )}
+
           {/* Music player and controls */}
           <div className={`relative z-20 fade-up ${controlsVisible ? 'visible' : ''}`}>
             <MusicPlayer />
           </div>
-
-          {currentExperience.slug === 'dads-cassette' && (
-            <div className={`relative z-30 mt-2 overflow-visible fade-up ${controlsVisible ? 'visible' : ''}`}>
-              <CassetteSideSelector />
-            </div>
-          )}
 
           {/* Experience capsules */}
           <div className={`relative z-40 mt-2 overflow-visible fade-up ${controlsVisible ? 'visible' : ''}`}>
             <ExperienceCapsules />
           </div>
 
-          <div className={`relative z-40 mt-2 overflow-visible fade-up ${controlsVisible ? 'visible' : ''}`}>
+          <div className={`relative z-40 mt-2 flex items-center gap-2 overflow-visible fade-up ${controlsVisible ? 'visible' : ''}`}>
+            <Link
+              href="/request"
+              className="raaste-button-touch pointer-events-auto inline-flex min-h-7 items-center justify-center rounded-full border border-[rgba(242,223,184,0.32)] bg-[rgba(242,223,184,0.74)] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#241b15] shadow-[0_7px_18px_rgba(0,0,0,0.22)] backdrop-blur-[4px] transition hover:border-[rgba(242,223,184,0.58)] hover:bg-[rgba(242,223,184,0.88)] focus:outline-none focus-visible:ring-1 focus-visible:ring-[rgba(242,223,184,0.78)] focus-visible:ring-offset-2 focus-visible:ring-offset-[rgba(22,19,15,0.72)]"
+            >
+              Make Your RAASTE
+            </Link>
             <ShareExperienceButton />
           </div>
         </div>
       </div>
+      )}
 
       {aboutOpen && (
         <div
