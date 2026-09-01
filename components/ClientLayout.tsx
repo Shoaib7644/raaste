@@ -16,6 +16,7 @@ import DadsCassetteBoombox from './DadsCassetteBoombox'
 
 const INSTAGRAM_URL = 'https://www.instagram.com/clive_shoaib?igsh=b25raGxrbDl3djVx&utm_source=qr'
 const LINKEDIN_URL = 'https://www.linkedin.com/in/shoaib-ahmed-52b4445a'
+const PORTFOLIO_URL = 'https://shoaib-ahmed-quraishi-portfolio.vercel.app'
 
 function InstagramIcon() {
   return (
@@ -273,7 +274,18 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
               </p>
 
               <div className="mt-6 flex items-center justify-between gap-4 text-xs text-print-paper/70">
-                <span>Made with ♥ by Shoaib.</span>
+                <span>
+                  Made with ♥ by{' '}
+                  <a
+                    href={PORTFOLIO_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-print-paper/82 transition hover:text-print-cream focus:outline-none focus-visible:ring-1 focus-visible:ring-[rgba(242,223,184,0.7)]"
+                  >
+                    Shoaib ↗
+                  </a>
+                  .
+                </span>
                 <a
                   href={INSTAGRAM_URL}
                   target="_blank"
@@ -303,7 +315,17 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
       {/* Footer */}
       <div className="fixed bottom-3 left-0 z-10 flex w-full items-center justify-center gap-3 px-4 text-center text-xs text-white/60">
-        <span>made with ♥ by Shoaib</span>
+        <span>
+          made with ♥ by{' '}
+          <a
+            href={PORTFOLIO_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pointer-events-auto text-white/70 transition hover:text-white focus:outline-none focus-visible:ring-1 focus-visible:ring-white/60"
+          >
+            Shoaib ↗
+          </a>
+        </span>
         <a
           href={INSTAGRAM_URL}
           target="_blank"

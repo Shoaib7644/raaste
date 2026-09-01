@@ -1,3 +1,5 @@
+const PORTFOLIO_URL = 'https://shoaib-ahmed-quraishi-portfolio.vercel.app'
+
 export default function About() {
   return (
     <div className="mx-auto flex min-h-[calc(100vh-14rem)] max-w-2xl flex-col items-center justify-center text-center">
@@ -22,6 +24,14 @@ export default function About() {
         <p className="mt-5 text-xs font-semibold uppercase tracking-[0.18em] text-print-paper/62">
           Every station is a memory. Some can now be yours.
         </p>
+        <a
+          href={PORTFOLIO_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-7 inline-flex text-xs font-medium uppercase tracking-[0.16em] text-print-paper/70 transition hover:text-print-cream focus:outline-none focus-visible:ring-1 focus-visible:ring-[rgba(242,223,184,0.7)]"
+        >
+          Visit Shoaib&apos;s portfolio ↗
+        </a>
       </div>
     </div>
   );
