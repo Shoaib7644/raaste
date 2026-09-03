@@ -22,7 +22,9 @@ export default function ShareExperienceButton() {
 
   const handleShare = async () => {
     const url = window.location.href
-    const title = `${currentExperience.title} — RAASTE`
+    const title = currentExperience.slug.startsWith('u/')
+      ? `${currentExperience.title} - RAASTE`
+      : `${currentExperience.title} — RAASTE`
     const text = shareTextBySlug[currentExperience.slug] ?? 'Tune into RAASTE — Indian Road Radio.'
     const browserNavigator = window.navigator
 

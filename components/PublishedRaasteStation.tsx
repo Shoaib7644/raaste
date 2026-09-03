@@ -18,14 +18,13 @@ export default function PublishedRaasteStation({ raaste }: PublishedRaasteStatio
   const [titleVisible, setTitleVisible] = useState(false)
   const [taglineVisible, setTaglineVisible] = useState(false)
   const [controlsVisible, setControlsVisible] = useState(false)
-  const visibleSongs = raaste.curatedSongs.slice(0, 5)
 
   const personalExperience = useMemo<Experience>(() => ({
     slug: `u/${raaste.slug}`,
-    title: raaste.title,
+    title: `${raaste.displayName}'s`,
     hindiTitle: raaste.hindiTitle || raaste.displayName,
     tagline: raaste.tagline,
-    microcopy: `${raaste.displayName}'s RAASTE is playing`,
+    microcopy: 'now playing',
     stationMark: 'personal / radio',
     playlistId: raaste.playlistId,
     backgroundImage: raaste.backgroundImage,
@@ -68,19 +67,6 @@ export default function PublishedRaasteStation({ raaste }: PublishedRaasteStatio
           >
             {raaste.tagline}
           </p>
-
-          {visibleSongs.length > 0 && (
-            <div className={`fade-up mx-auto mt-6 flex max-w-[min(34rem,calc(100vw-2rem))] flex-wrap items-center justify-center gap-1.5 ${taglineVisible ? 'visible' : ''}`} aria-label="Selected songs">
-              {visibleSongs.map((song, index) => (
-                <span
-                  key={`${song.title}-${index}`}
-                  className="rounded-full border border-[rgba(242,223,184,0.24)] bg-[rgba(10,8,5,0.38)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-print-cream/82 shadow-[0_7px_18px_rgba(0,0,0,0.18)] backdrop-blur-[4px]"
-                >
-                  {song.title}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
 
         <div className="fixed bottom-[8vh] left-0 right-0 z-20 flex flex-col items-center overflow-visible pointer-events-none sm:bottom-[7vh]">

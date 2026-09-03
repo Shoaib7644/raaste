@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: PageProps<'/u/[slug]'>): Prom
     }
   }
 
-  const title = `${raaste.title} — RAASTE`
+  const title = `${raaste.displayName}'s - RAASTE`
   const url = absoluteUrl(`/u/${raaste.slug}`)
   const imageUrl = absoluteUrl(`/u/${raaste.slug}/opengraph-image`)
 

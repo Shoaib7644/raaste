@@ -1,4 +1,6 @@
 import { ImageResponse } from 'next/og'
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
 import { getPublishedRaasteBySlug } from '@/lib/published-raastes'
 
 export const alt = 'RAASTE — Indian Road Radio'
@@ -9,15 +11,27 @@ export const size = {
 
 export const contentType = 'image/png'
 
+const ogPortraitsBySlug: Record<string, { path: string; width: number; height: number }> = {
+  yusuf: {
+    path: 'public/images/og/yusuf-portrait.png',
+    width: 272,
+    height: 590,
+  },
+}
+
 export default async function Image({ params }: PageProps<'/u/[slug]'>) {
   const { slug } = await params
   const raaste = await getPublishedRaasteBySlug(slug)
-  const title = raaste?.title || 'RAASTE'
+  const title = raaste ? `${raaste.displayName}'s` : 'RAASTE'
   const hindiTitle = raaste?.hindiTitle || 'Indian Road Radio'
   const tagline = raaste?.tagline || 'Songs that stayed.'
   const displayName = raaste?.displayName || 'RAASTE'
   const accent = raaste?.ogAccent || '#9f3f2f'
   const songs = raaste?.curatedSongs.slice(0, 5) || []
+  const portrait = raaste ? ogPortraitsBySlug[raaste.slug] : undefined
+  const portraitImage = portrait
+    ? `data:image/png;base64,${Buffer.from(await readFile(join(process.cwd(), portrait.path))).toString('base64')}`
+    : undefined
 
   return new ImageResponse(
     (
@@ -44,6 +58,34 @@ export default async function Image({ params }: PageProps<'/u/[slug]'>) {
             background: `radial-gradient(circle at 18% 18%, ${accent}66, transparent 34%), radial-gradient(circle at 82% 70%, #30435e70, transparent 36%), linear-gradient(135deg, #241b15 0%, #16130f 54%, #0a0805 100%)`,
           }}
         />
+        {portraitImage && (
+          <img
+            src={portraitImage}
+            alt=""
+            width={portrait?.width}
+            height={portrait?.height}
+            style={{
+              position: 'absolute',
+              right: 86,
+              bottom: -28,
+              height: 560,
+              opacity: 0.24,
+            }}
+          />
+        )}
+        {portraitImage && (
+          <div
+            style={{
+              position: 'absolute',
+              right: 0,
+              top: 0,
+              bottom: 0,
+              width: 500,
+              display: 'flex',
+              background: 'linear-gradient(90deg, rgba(22, 19, 15, 0.08), rgba(22, 19, 15, 0.58) 58%, rgba(22, 19, 15, 0.74))',
+            }}
+          />
+        )}
         <div
           style={{
             position: 'absolute',
@@ -78,7 +120,7 @@ export default async function Image({ params }: PageProps<'/u/[slug]'>) {
             position: 'relative',
             display: 'flex',
             flexDirection: 'column',
-            maxWidth: 840,
+            maxWidth: portraitImage ? 720 : 840,
           }}
         >
           <div
